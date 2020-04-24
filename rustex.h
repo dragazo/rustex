@@ -47,7 +47,7 @@ namespace rustex
 
 		// constructs the wrapped object of type T with the specified arguments
 		template<typename ...Args, std::enable_if_t<std::is_constructible_v<T, Args...>, int> = 0>
-		explicit mutex(Args &&...args) : raw_val(std::forward<Args>(args)...) {}
+		constexpr explicit mutex(Args &&...args) : raw_val(std::forward<Args>(args)...) {}
 
 		mutex(const mutex&) = delete;
 		mutex(mutex&&) = delete;

@@ -31,8 +31,21 @@ static_assert(std::is_same_v<decltype(std::declval<rustex::mutex<int>::mut_guard
 static_assert(std::is_same_v<decltype(std::declval<rustex::mutex<int>::guard>().operator*()), const int&>, "dereference type error");
 static_assert(std::is_same_v<decltype(std::declval<rustex::mutex<int>::guard>().operator->()), const int*>, "dereference type error");
 
+rustex::mutex<int> global_val{ 563 };
+
 int main() try
 {
+	{
+		assert(*global_val.lock() == 563);
+		*global_val.lock_mut() = -32;
+		{
+			auto h1 = global_val.lock();
+			auto h2 = global_val.lock();
+
+			assert(*h1 == -32);
+			assert(&*h1 == &*h2);
+		}
+	}
 	{
 		rustex::mutex<int> v(55);
 		assert(*v.lock() == 55);
