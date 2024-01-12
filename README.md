@@ -36,7 +36,29 @@ void bar()
 }
 ```
 
-# Using rustex in your project
+# Adding rustex to your project
 
-`rustex` is a single-file header-only library for C++17.
-All you need to do for compilation is include `rustex.h`.
+## Simple
+
+1. Drop [rustex.h](https://raw.githubusercontent.com/dragazo/rustex/master/rustex.h) wherever you like in your source tree
+
+## CMake Classic
+
+```sh
+git clone https://github.com/dragazo/rustex.git
+mkdir -p rustex/build
+cd rustex/build
+cmake ..
+sudo make install
+```
+
+## CMake FetchContent
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+    rustex
+    GIT_REPOSITORY https://github.com/dragazo/rustex.git
+)
+FetchContent_MakeAvailable(rustex)
+```
